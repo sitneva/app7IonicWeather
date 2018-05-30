@@ -11,6 +11,7 @@ import 'rxjs/Rx';
 export class WeatherPage {
   country:String;
   city:String;
+  weather:any;
 
   constructor(public navCtrl: NavController, private weatherService: WeatherService) {
     this.city = "Boston";
@@ -20,6 +21,7 @@ export class WeatherPage {
   ngOnInit(){
     this.weatherService.getWeather(this.country, this.city)
       .subscribe(result => {
+        this.weather = result.json().current_observation;
         console.log(result.json())
       })
 
