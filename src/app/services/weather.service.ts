@@ -18,14 +18,13 @@ export class WeatherService{
 
   }
 
-  getWeather(country, city){
-    return this.http.get(this.conditionsUrl+country+"/"+city+".json")
+  getWeather(zmw){
+    return this.http.get(this.conditionsUrl+  "zmw:" + zmw + ".json")
 
   }
 
   searchCities(serchStr){
     return this.http.get(this.searchUrl+serchStr)
-
   }
 
 }

@@ -9,31 +9,44 @@ import 'rxjs/Rx';
   templateUrl: 'weather.html'
 })
 export class WeatherPage {
-  country:String;
-  city:String;
   weather:any;
   searchStr:String;
   results:any;
+  zmw:any;
 
   constructor(public navCtrl: NavController, private weatherService: WeatherService) {
-    this.city = "Boston";
-    this.country= "MA";
   }
 
   ngOnInit(){
-    this.weatherService.getWeather(this.country, this.city)
+    this.getDefaultCity();
+    this.weatherService.getWeather(this.zmw)
       .subscribe(result => {
         this.weather = result.json().current_observation;
         console.log(result.json())
       })
   }
 
+  getDefaultCity(){
+    this.zmw = '00000.25.33345';
+  }
+
   getQuery(){
-    console.log(this.searchStr);
+    //console.log(this.searchStr);
     this.weatherService.searchCities(this.searchStr)
       .subscribe(res => {
         console.log(res.json());
         this.results = res.json().RESULTS;
+      })
+  }
+
+  chooseCity(location){
+    console.log(location);
+    this.results = [];
+    this.searchStr = '';
+    this.weatherService.getWeather(location.zmw)
+      .subscribe(result => {
+        this.weather = result.json().current_observation;
+        console.log(result.json())
       })
   }
 
