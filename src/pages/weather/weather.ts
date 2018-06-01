@@ -15,6 +15,7 @@ export class WeatherPage {
   zmw:any;
 
   constructor(public navCtrl: NavController, private weatherService: WeatherService) {
+
   }
 
   ngOnInit(){
@@ -28,6 +29,9 @@ export class WeatherPage {
 
   getDefaultCity(){
     this.zmw = '00000.25.33345';
+    if(localStorage.getItem('location') !== null){
+      this.zmw = JSON.parse(localStorage.getItem('location')).zmw;
+    }
   }
 
   getQuery(){
