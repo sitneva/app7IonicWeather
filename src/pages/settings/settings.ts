@@ -11,6 +11,7 @@ export class SettingsPage {
   searchStr: String;
   results: any;
   defaultCity: any;
+  defaultCityName: String;
   zmw: any;
 
   constructor(public navCtrl: NavController, private weatherService: WeatherService) {
@@ -22,9 +23,9 @@ export class SettingsPage {
   }
 
   getDefaultCity(){
-    this.defaultCity = '';
+    this.defaultCityName = '';
     if(localStorage.getItem('location') !== null){
-      this.defaultCity = JSON.parse(localStorage.getItem('location')).name;
+      this.defaultCityName = JSON.parse(localStorage.getItem('location')).name;
     }
 
 
@@ -41,12 +42,15 @@ export class SettingsPage {
 
   chooseDedefaultCity(location) {
     this.results = [];
-    localStorage.setItem('location', JSON.stringify(location));
+
+    this.defaultCity = location;
+    this.defaultCityName =  location.name;
     this.searchStr = location.name;
     this.getDefaultCity();
   }
 
   saveChanges(){
+    localStorage.setItem('location', JSON.stringify(this.defaultCity));
     this.navCtrl.push(WeatherPage);
   }
 }

@@ -16,7 +16,7 @@
             <ion-input (keyup)="getQuery()" [(ngModel)]="searchStr" type="text" value=""></ion-input>
           </ion-item>
         </ion-list>
-        <p class="current">Current Location: {{defaultCity}}</p>
+        <p class="current">Current Location: {{defaultCityName}}</p>
         <button ion-button (click)="saveChanges()" block>Save Changes</button>
         <ion-list *ngIf="results">
           <ion-item *ngFor="let result of results">
